@@ -13,8 +13,10 @@ Android 8（API 26）及以上可用的纯本地文本编辑器，界面简单�
 
 ## 附件
 
-- `简易编辑器.apk` — 正式版，直接安装
-- `简易编辑器-debug.apk` — 调试版
+- `SimpleTextEditor-v1.0.0.apk` — 正式版，直接安装
+- `SimpleTextEditor-v1.0.0-debug.apk` — 调试版
+
+仓库 `dist/` 下另有中文文件名的同两份 APK，内容完全相同。
 
 ## 从源码构建
 
