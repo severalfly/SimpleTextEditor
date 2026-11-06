@@ -17,6 +17,9 @@
 
 ## 装到手机
 
+可直接在 [Releases](https://github.com/severalfly/SimpleTextEditor/releases) 下载正式版 `SimpleTextEditor-v1.0.0.apk`，
+或从本仓库 `dist/` 取：
+
 1. 把 `dist/简易编辑器.apk` 拷到手机（微信传文件、数据线、adb 都行）
 2. 手机上点开安装，允许「安装未知来源应用」
 3. 首次打开点「选择文件夹」，授权一次，之后会记住这个文件夹
@@ -24,7 +27,7 @@
 也可以用命令行装（手机开 USB 调试、连上电脑）：
 
 ```bash
-toolchain\android-sdk\platform-tools\adb.exe install -r dist\简易编辑器.apk
+adb install -r dist/简易编辑器.apk
 ```
 
 ## 用起来
