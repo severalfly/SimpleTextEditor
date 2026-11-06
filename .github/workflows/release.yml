@@ -1,0 +1,30 @@
+name: Publish APK Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: List APKs to upload
+        run: ls -lh dist/*.apk
+
+      - name: Create release and upload APKs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" dist/*.apk \
+            --title "$TAG" \
+            --notes-file .github/release-notes.md \
+            --verify-tag
