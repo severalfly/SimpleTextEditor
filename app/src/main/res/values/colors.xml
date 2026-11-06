@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1B5E9E</color>
+    <color name="colorPrimaryDark">#14456F</color>
+    <color name="colorAccent">#2E8BC0</color>
+    <color name="text_primary">#FF1A1A1A</color>
+    <color name="text_secondary">#FF6B6B6B</color>
+    <color name="folder_name">#FF1565C0</color>
+    <color name="bar_bg">#FFF1F4F8</color>
+    <color name="divider">#FFE0E0E0</color>
+</resources>

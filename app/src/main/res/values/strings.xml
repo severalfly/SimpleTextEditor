@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">简易编辑器</string>
+    <string name="pick_folder">选择文件夹</string>
+    <string name="pick_file">打开文件</string>
+    <string name="new_file">新建文件</string>
+    <string name="go_up">上一级</string>
+    <string name="save">保存</string>
+    <string name="preview">预览</string>
+    <string name="edit">编辑</string>
+    <string name="create">创建</string>
+    <string name="cancel">取消</string>
+    <string name="empty_folder">这个文件夹是空的</string>
+    <string name="no_folder">还没有选择文件夹，点上面的「选择文件夹」开始</string>
+    <string name="folder_label">文件夹</string>
+    <string name="new_file_name_hint">文件名，例如 笔记.md</string>
+    <string name="markdown_badge">MD</string>
+</resources>
