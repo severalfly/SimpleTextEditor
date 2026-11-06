@@ -51,10 +51,16 @@ final class MarkdownRenderer {
     }
 
     static String toHtml(String markdown) {
+        return toHtml(markdown, 15);
+    }
+
+    /** fontPx 取编辑区的 sp 数值，WebView 的 CSS px 约等于 dp，视觉上基本对齐。 */
+    static String toHtml(String markdown, int fontPx) {
         String body = render(markdown == null ? "" : markdown);
         return "<!DOCTYPE html><html><head><meta charset=\"utf-8\">"
                 + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
-                + "<style>" + CSS + "</style></head><body>" + body + "</body></html>";
+                + "<style>" + CSS + "body{font-size:" + fontPx + "px;}</style></head><body>"
+                + body + "</body></html>";
     }
 
     // ------------------------------------------------------------------ 块级

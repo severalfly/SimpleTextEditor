@@ -1,5 +1,6 @@
 package com.leon.simpleeditor;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
@@ -40,10 +42,17 @@ public class EditorActivity extends AppCompatActivity {
     private static final long MAX_BYTES = 3L * 1024 * 1024;     // 超过 3MB 不编辑，避免写回时丢内容
     private static final long AUTO_SAVE_DELAY_MS = 1200L;
 
+    private static final String PREF_NAME = "editor_prefs";
+    private static final String KEY_FONT_SP = "font_sp";
+    private static final int DEFAULT_FONT_SP = 16;
+    private static final int[] FONT_CHOICES = {12, 14, 16, 18, 20, 22, 26, 30, 36};
+
     private EditText editor;
     private WebView previewView;
     private TextView statusView;
     private Button previewButton;
+    private Button fontButton;
+    private int fontSp = DEFAULT_FONT_SP;
 
     private Uri uri;
     private String charsetName = "UTF-8";
@@ -80,6 +89,11 @@ public class EditorActivity extends AppCompatActivity {
         previewView.getSettings().setJavaScriptEnabled(false);
         previewView.getSettings().setSupportZoom(true);
         previewView.getSettings().setBuiltInZoomControls(false);
+
+        fontButton = findViewById(R.id.btn_font);
+        fontSp = getSharedPreferences(PREF_NAME, MODE_PRIVATE).getInt(KEY_FONT_SP, DEFAULT_FONT_SP);
+        applyFontSize();
+        fontButton.setOnClickListener(v -> showFontDialog());
 
         uri = getIntent().getData();
         String name = getIntent().getStringExtra(EXTRA_NAME);
@@ -223,7 +237,46 @@ public class EditorActivity extends AppCompatActivity {
         }
     }
 
+    // ---------------------------------------------------------------- 字号
+
+    private void applyFontSize() {
+        editor.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSp);
+        fontButton.setText(getString(R.string.font_size) + " " + fontSp);
+        if (previewMode) {
+            renderPreview();
+        }
+    }
+
+    private void showFontDialog() {
+        String[] labels = new String[FONT_CHOICES.length + 1];
+        for (int i = 0; i < FONT_CHOICES.length; i++) {
+            int sp = FONT_CHOICES[i];
+            labels[i] = sp + " sp" + (sp == fontSp ? getString(R.string.font_current) : "");
+        }
+        labels[FONT_CHOICES.length] = getString(R.string.font_reset);
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.font_dialog_title)
+                .setItems(labels, (dialog, which) -> {
+                    int chosen = which < FONT_CHOICES.length ? FONT_CHOICES[which] : DEFAULT_FONT_SP;
+                    if (chosen == fontSp) {
+                        return;
+                    }
+                    fontSp = chosen;
+                    getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+                            .edit().putInt(KEY_FONT_SP, fontSp).apply();
+                    applyFontSize();
+                    setStatus(getString(R.string.font_size) + " " + fontSp + "sp");
+                })
+                .show();
+    }
+
     // ---------------------------------------------------------------- Markdown 预览
+
+    private void renderPreview() {
+        previewView.loadDataWithBaseURL(null,
+                MarkdownRenderer.toHtml(editor.getText().toString(), fontSp),
+                "text/html", "utf-8", null);
+    }
 
     private void togglePreview() {
         if (!markdown) {
@@ -231,9 +284,7 @@ public class EditorActivity extends AppCompatActivity {
         }
         if (!previewMode) {
             save(true);     // 预览前先落盘，保证看到的就是文件内容
-            previewView.loadDataWithBaseURL(null,
-                    MarkdownRenderer.toHtml(editor.getText().toString()),
-                    "text/html", "utf-8", null);
+            renderPreview();
             previewView.setVisibility(View.VISIBLE);
             editor.setVisibility(View.GONE);
             previewMode = true;

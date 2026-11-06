@@ -15,4 +15,8 @@
     <string name="folder_label">文件夹</string>
     <string name="new_file_name_hint">文件名，例如 笔记.md</string>
     <string name="markdown_badge">MD</string>
+    <string name="font_size">字号</string>
+    <string name="font_dialog_title">选择编辑器字号</string>
+    <string name="font_current">（当前）</string>
+    <string name="font_reset">恢复默认（16sp）</string>
 </resources>

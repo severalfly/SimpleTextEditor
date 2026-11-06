@@ -9,6 +9,7 @@
 - **新建文件**：在当前文件夹里直接新建，默认名「未命名.md」，建完自动打开
 - 改完不用管，停止输入 1.2 秒自动保存；切走 / 退出时再补存一次
 - 顶部有「保存」按钮，想手动存一下也行
+- **字号可调**：编辑页顶部点「字号 16」选 12~36sp，设置会记住；Markdown 预览同步缩放
 - **Markdown 支持**：`.md` / `.markdown` 等文件编辑页右上角多一个「预览」按钮，
   一键渲染成排版好的页面（标题/列表/表格/代码块/引用/链接/删除线/任务列表），
   再点「编辑」回到改字；列表里 Markdown 文件会带 MD 标记
@@ -17,7 +18,7 @@
 
 ## 装到手机
 
-可直接在 [Releases](https://github.com/severalfly/SimpleTextEditor/releases) 下载正式版 `SimpleTextEditor-v1.0.0.apk`，
+可直接在 [Releases（最新版）](https://github.com/severalfly/SimpleTextEditor/releases/latest) 下载正式版 `SimpleTextEditor-v1.1.0.apk`，
 或从本仓库 `dist/` 取：
 
 1. 把 `dist/简易编辑器.apk` 拷到手机（微信传文件、数据线、adb 都行）
@@ -37,6 +38,8 @@ adb install -r dist/简易编辑器.apk
 - **列表里点文件**：打开编辑
 - **打开文件**：不想在目录里翻，直接挑一个文件打开
 - **新建文件**：在输入框里改文件名（默认 `未命名.md`）→「创建」，会直接打开新文件开始写
+- **调字号**：编辑页顶部点「字号 16」→ 选一个档位（或「恢复默认」），正文和 Markdown 预览一起变，
+  下次打开仍然保持
 - **Markdown 预览**：`.md` 文件编辑页右上角点「预览」看渲染效果，再点「编辑」回来改；
   预览前会先自动保存，保证看到的就是文件内容
 - 编辑页左上角会显示「编辑中…」和「已保存 HH:mm:ss」
@@ -57,7 +60,7 @@ SimpleTextEditor/
 ├─ app/src/main/java/com/leon/simpleeditor/
 │  ├─ MainActivity.java      目录浏览 + 选文件夹 / 选文件 / 新建文件
 │  ├─ FileEntryAdapter.java  文件列表适配器
-│  ├─ EditorActivity.java    编辑器 + 自动保存 + Markdown 预览切换
+│  ├─ EditorActivity.java    编辑器 + 自动保存 + 字号调整 + Markdown 预览切换
 │  ├─ MarkdownRenderer.java  Markdown → HTML 渲染（内置，无第三方库）
 │  └─ TextCodec.java         编码识别（UTF-8 / GB18030）
 ├─ app/src/main/res/         布局、颜色、图标
@@ -82,6 +85,7 @@ gradle assembleDebug
 | 项 | 值 |
 |---|---|
 | 包名 | com.leon.simpleeditor |
+| 版本 | 1.1（versionCode 2） |
 | minSdk | 26（Android 8.0） |
 | targetSdk | 34 |
 | 语言 | Java 17 |

@@ -25,6 +25,16 @@
             android:textSize="12sp" />
 
         <Button
+            android:id="@+id/btn_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/font_size"
+            android:textSize="12sp" />
+
+        <Button
             android:id="@+id/btn_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
